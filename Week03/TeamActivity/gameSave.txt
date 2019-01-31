@@ -1,0 +1,1 @@
+{"name":"Bob the Destroyer","health":100,"mana":50,"gold":100,"equipment":{"Master Sword":100}}
