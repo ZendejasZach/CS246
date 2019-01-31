@@ -1,0 +1,55 @@
+# 01 Ponder : Weekly Reflection
+
+1. Describe one challenge your team experienced working on the Hello World activity.
+I needed to learn how to write text to the screen in Java. This is where I
+also learned that Java syntax uses capital letters for the first letter.
+
+
+2. For the NSA Cryptography assignment, what did you learn about how Java parameter passing differs from C++?
+Java always passes parameters by value which is passing the reference to the
+parameter.
+
+
+3. Did you complete the Stretch Challenge for the NSA Cryptography? If so, briefly describe what you did, and how you structured your code.
+I did not.
+
+
+4. What did you learn from comparing your code to the teacher's solution?
+I was able to find out how to do the stretch challanege. 
+
+
+5. After completing the assignments this week, what questions do you still have?
+N/A
+
+
+6. If you were getting paid to work on this week's Prove assignment and you had another month to work on it, what would you add?
+Additional requirements for passwords similar to the stretch challange. Also a
+time limit where users will need to change their passwords every 30 days.
+
+
+7. A common Java interview question is "What are javadocs and when should they be used?". How would you answer that question?
+Javadocs are the low level documentation for the java class it is for. It
+should always be used when working with existing code and should be made when
+you are finished writing your code.
+
+
+8. Of all of the resources in this week's Preparation assignment, which was the _most_ helpful to you and why?
+The linked Oracle documentation was very useful as it clearly explained the
+subjects and had very simple and easy to understand examples.
+
+
+9. Of all of the resources in this week's Preparation assignment, which was the _least_ helpful to you and why?
+The Stack Overflow article regarding Hashing as I already had a good
+understanding of that subject.
+
+
+10. How many hours did you spend on this class this week?
+
+01 Prepare - 1 1/2 hrs
+01 Teach - 1 hr
+01 Prove 1st Attempt - 2 hrs
+01 Prove 2nd Attempt - 0 hr
+01 Ponder - 1/2 hr
+----------------------------
+Total Hours - 5 hrs
+

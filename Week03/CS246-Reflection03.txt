@@ -1,0 +1,47 @@
+# 03 Ponder : Weekly Reflection
+
+1. Describe one challenge your team experienced working on the JSON parsing activity.
+It was difficult on how to parse the data to a java object 
+
+
+2. For the Prove API assignment, what did you learn about how APIs work?
+You need to open a connection to the API as an object, then use that onject to request the data, then close the connection.
+
+
+3. Did you complete the Stretch Challenge for the Prove API Assignment? If so, briefly describe which method you used.
+No
+
+
+4. What did you learn from comparing your code to the teacher's solution?
+It is better to seperate your methods out into different classes to have better object oriented code
+
+
+5. After completing the assignments this week, what questions do you still have?
+I am still a bit unclear how to move JSON String objects to a class object. It worked in my code for the current weather conditions but not the 5 day forcast.
+
+
+6. Aside from the task you completed, what is another use you could see for the API we used?
+You can setup the API to notify you of increment weather that is upcoming
+
+
+7. A common Java interview question is "Describe what an API is and how it's used". (Sometimes people refer to these types of APIs as "REST APIs") How would you answer that question?
+An api is a way for a program to call on an external source to request and retrieve data.
+
+
+8. Of all of the resources in this week's reading, which was the _most_ helpful to you and why?
+The Stack Overflow entries
+
+
+9. Of all of the resources in this week's reading, which was the _least_ helpful to you and why?
+The Google documentation
+
+
+10. How many hours did you spend on this class this week?
+
+01 Prepare - 2
+01 Teach - 4
+01 Prove 1st Attempt - 6
+01 Prove 2nd Attempt - .5
+01 Ponder - .5
+----------------------------
+Total Hours - 13

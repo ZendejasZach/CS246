@@ -1,0 +1,55 @@
+# 02 Ponder : Weekly Reflection
+
+1. Describe one challenge your team experienced working on the Vacation Calendar activity.
+
+I was not sure how the output needed to be for the program.
+
+2. For the Game of Life assignment, what advantages do you see in using interfaces to define creature behaviors, rather than subclasses?
+
+It is nice that you can have an interface that has a lot of pre-defined
+methods for similar classes.
+
+3. Did you complete the Stretch Challenge for the Game of Life Assignment? If so, briefly describe what you did, and how you structured your code.
+
+I did not finish it
+
+4. What did you learn from comparing your code to the teacher's solution?
+
+I was able to find how they implemented the randomness of some of the classes
+and how they did that differently.
+
+5. After completing the assignments this week, what questions do you still have?
+
+I am not sure how to utilize some methods in other classes. For example I had
+difficulty figuring out how to add a wolf to the creature list when the
+creature list lived in the Game.java file and I was trying to do this from the
+Wolf.java class.
+
+6. If you were getting paid to work on this week's Prove assignment and you had another month to work on it, what would you add?
+
+Additional graphics, sounds, and other creature types.
+
+7. A common Java interview question is "describe the difference between an interface and an abstract class". How would you answer that question?
+
+An interface has methods that need to be used when the interface is called, An
+abstract class is the parent that another class can be based off of but does
+not require that you use all the methods.
+
+8. Of all of the resources in this week's Preparation assignment, which was the _most_ helpful to you and why?
+
+The video on interfaces
+
+9. Of all of the resources in this week's Preparation assignment, which was the _least_ helpful to you and why?
+
+The Stack Overflow post. While there was a lot of information, I felt that it
+was too much and caused some confusion.
+
+10. How many hours did you spend on this class this week?
+
+02 Prepare - 2 hrs
+02 Teach - 2 hrs
+02 Prove 1st Attempt - 4 hrs
+02 Prove 2nd Attempt - .5 hrs
+02 Ponder - .5 hrs
+----------------------------
+Total Hours - 9 hrs
