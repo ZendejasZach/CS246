@@ -33,11 +33,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    // Create button
+    // Background work
+    protected void createFileBackground(int i) throws IOException, InterruptedException {
+        // write the thing
+        outputStream.write(Integer.parseInt(i + "\n"));
+
+        // update the progress
+        onProgressUpdate();
+        Thread.sleep(250);
+    }
+
+    // background progress update
+    protected void onProgressUpdate() throws IOException {
+        // update progress
+        progressStatus++;
+        progressBar.setProgress(progressStatus);
+
+        // if progress is complete, close file stream
+        if (progressStatus == 9){
+            closeStream();
+        }
+    }
+
+    // close the file stream when finished
+    protected void closeStream() throws IOException {
+        outputStream.close();
+    }
+
+    // Creates text file with 1-10 on each line
     public void createFile(View view){
+        // Link to the Create button
         Button button = findViewById(R.id.button_Create);
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
+                // set progress to 0
+                progressStatus = 0;
+
                 try{
                     // open fileStream
                     outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
@@ -45,12 +76,8 @@ public class MainActivity extends AppCompatActivity {
                     // loop to add 1-10 and sleep on each line
                     //TODO: Test this to make sure the format is correct
                     for (int i = 0; i < 10; i++){
-                        outputStream.write(Integer.parseInt(i + "\n"));
-                        progressStatus++;
-                        progressBar.setProgress(progressStatus);
-                        Thread.sleep(250);
+                        createFileBackground(i);
                     }
-                    outputStream.close();
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -58,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Load button
+    // Loads above mentioned file
     //TODO: Test this ish too
     public void loadFile(View view){
         // prep
@@ -99,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Clear button
+    // Clears the adapter
     public void clear(View view){
         Button button = findViewById(R.id.button_Clear);
         button.setOnClickListener(new View.OnClickListener(){
