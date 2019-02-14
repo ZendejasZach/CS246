@@ -1,6 +1,7 @@
 package Zendejas.CS246;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     // variables
     // TODO: Ask if adding variables here is considered best practice
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     String sCurrentLine;
     FileOutputStream outputStream;
     ProgressBar progressBar = findViewById(R.id.progressBar);
-    int progressStatus = 0;
+    Integer progressStatus = 0;
     ArrayAdapter<String> numberAdapter = new ArrayAdapter<>(this, R.layout.activity_main, R.id.View_list, Collections.singletonList(sCurrentLine));
     ListView listView = findViewById(R.id.View_list);
 
@@ -31,33 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    // Background work
-    protected void createFileBackground(int i) throws IOException, InterruptedException {
-        // write the thing
-        outputStream.write(Integer.parseInt(i + "\n"));
-
-        // update the progress
-        onProgressUpdate();
-        Thread.sleep(250);
-    }
-
-    // background progress update
-    protected void onProgressUpdate() throws IOException {
-        // update progress
-        progressStatus++;
-        progressBar.setProgress(progressStatus);
-
-        // if progress is complete, close file stream
-        if (progressStatus == 9){
-            closeStream();
-        }
-    }
-
-    // close the file stream when finished
-    protected void closeStream() throws IOException {
-        outputStream.close();
     }
 
     // Creates text file with 1-10 on each line
@@ -75,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
                     // loop to add 1-10 and sleep on each line
                     //TODO: Test this to make sure the format is correct
-                    for (int i = 0; i < 10; i++){
-                        createFileBackground(i);
+                    for (Integer i = 1; i == 10; i++){
+                        new numbers().execute(i);
                     }
                 } catch (Exception e){
                     e.printStackTrace();
@@ -136,4 +110,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Async Task
+    private class numbers extends AsyncTask<Integer>{
+
+        @Override
+        protected Object doInBackground(Integer...params) {
+            // write
+            outputStream.write(Integer.parseInt(i + "\n"));
+
+            // update the progress
+
+        }
+    }
 }
+
