@@ -1,7 +1,6 @@
 package Zendejas.CS246;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     // variables
     // TODO: Ask if adding variables here is considered best practice
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity{
     String sCurrentLine;
     FileOutputStream outputStream;
     ProgressBar progressBar = findViewById(R.id.progressBar);
-    Integer progressStatus = 0;
+    int progressStatus = 0;
     ArrayAdapter<String> numberAdapter = new ArrayAdapter<>(this, R.layout.activity_main, R.id.View_list, Collections.singletonList(sCurrentLine));
     ListView listView = findViewById(R.id.View_list);
 
@@ -34,24 +33,24 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
     }
 
-    // Creates text file with 1-10 on each line
+    // Create button
     public void createFile(View view){
-        // Link to the Create button
         Button button = findViewById(R.id.button_Create);
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                // set progress to 0
-                progressStatus = 0;
-
                 try{
                     // open fileStream
                     outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
 
                     // loop to add 1-10 and sleep on each line
                     //TODO: Test this to make sure the format is correct
-                    for (Integer i = 1; i == 10; i++){
-                        new numbers().execute(i);
+                    for (int i = 0; i < 10; i++){
+                        outputStream.write(Integer.parseInt(i + "\n"));
+                        progressStatus++;
+                        progressBar.setProgress(progressStatus);
+                        Thread.sleep(250);
                     }
+                    outputStream.close();
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    // Loads above mentioned file
+    // Load button
     //TODO: Test this ish too
     public void loadFile(View view){
         // prep
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    // Clears the adapter
+    // Clear button
     public void clear(View view){
         Button button = findViewById(R.id.button_Clear);
         button.setOnClickListener(new View.OnClickListener(){
@@ -110,18 +109,4 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-
-    // Async Task
-    private class numbers extends AsyncTask<Integer>{
-
-        @Override
-        protected Object doInBackground(Integer...params) {
-            // write
-            outputStream.write(Integer.parseInt(i + "\n"));
-
-            // update the progress
-
-        }
-    }
 }
-
