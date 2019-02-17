@@ -5,118 +5,114 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    // variables
-    // TODO: Ask if adding variables here is considered best practice
-    String filename = "numbers.txt";
-    String sCurrentLine;
-    FileOutputStream outputStream;
-//    ProgressBar progressBar = findViewById(R.id.progressBar2);
-    int progressStatus = 0;
-//    ArrayAdapter<String> numberAdapter = new ArrayAdapter<>(this, R.layout.activity_main, R.id.View_list, Collections.singletonList(sCurrentLine));
-//    ListView listView = findViewById(R.id.View_list);
+    // Variables
+    private static String FILE = "numbers.txt";
+    private List<Integer> numberList;
+    private ArrayAdapter<Integer> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Create the list and array adapter
+        numberList = new ArrayList<>();
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.my_list_item, numberList);
+
+        // Connect adapter to listView
+        ListView listView = findViewById(R.id.mainListView);
+        listView.setAdapter(arrayAdapter);
     }
 
-    // Create button
-    public void createFile(View view) {
-        // Debugging
-        Toast create = Toast.makeText(this, "Create called", Toast.LENGTH_SHORT);
-        create.show();
+    public void onCreateClick(View view){
+        // Set progress bar to 0
+        ProgressBar progressBar = findViewById(R.id.progressBar2);
+        progressBar.setProgress(0);
 
-        Button button = findViewById(R.id.button_Create);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    // open fileStream
-                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+        try (FileOutputStream outputStream = this.openFileOutput(FILE, Context.MODE_PRIVATE)){
+            // Write
+            for(int i = 1; i <= 10; i++){
+                String line = String.format("%d%n", i);
+                outputStream.write(line.getBytes());
 
-                    // loop to add 1-10 and sleep on each line
-                    //TODO: Test this to make sure the format is correct
-                    for (int i = 0; i < 10; i++) {
-                        outputStream.write(Integer.parseInt(i + "\n"));
-                        progressStatus++;
-//                        progressBar.setProgress(progressStatus);
-                        Thread.sleep(250);
-                    }
-                    outputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // Update progress
+                progressBar.setProgress(i * 10);
+
+                // Sleepy time
+                Thread.sleep(250);
             }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Toast loadToast = Toast.makeText(getApplicationContext().getApplicationContext(), "Create Finished", Toast.LENGTH_LONG);
+        loadToast.show();
     }
+
 
     // Load button
-    //TODO: Test this ish too
     public void loadFile(View view){
-        // Debugging
-        Toast load = Toast.makeText(this, "Load called", Toast.LENGTH_SHORT);
-        load.show();
+        // Reset the progress bar
+        ProgressBar progressBar = findViewById(R.id.progressBar2);
+        progressBar.setProgress(0);
 
-        // prep
-        Button button = findViewById(R.id.button_Load);
-        progressStatus = 0;
+        try (FileInputStream inputStream = this.openFileInput(FILE)) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
+                // Read the file, line by line
+                String line;
+                while ((line = reader.readLine()) != null) {
 
-        // load the data
-        button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                // Get file and directory
-                File directory = getApplicationContext().getFilesDir();
-                File file = new File(directory, filename);
+                    // Get the number out of the file
+                    int i = Integer.parseInt(line);
 
-                // read the file line by line
-                StringBuilder contentBuilder = new StringBuilder();
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    while((sCurrentLine = br.readLine()) != null){
-                        // read the line
-                        contentBuilder.append(sCurrentLine).append("\n");
+                    // Put the number in the adapter, which is connected to the ListView
+                    arrayAdapter.add(i);
 
-                        // update the progress bar
-                        progressStatus++;
-//                        progressBar.setProgress(progressStatus);
+                    // See how many things are in the apdater, and update the ProgressBar
+                    int adapterCount = arrayAdapter.getCount();
+                    progressBar.setProgress(adapterCount * 10);
 
-                        // add to list
-//                        listView.setAdapter(numberAdapter);
-
-                        // sleepy time
-                        Thread.sleep(250);
-                    }
-                } catch(IOException e){
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    // Simulate a more difficult task by sleeping for 1/4 second
+                    Thread.sleep(250);
                 }
             }
-        });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Inform the user that the task is complete
+        Toast.makeText(this, "Finished Loading", Toast.LENGTH_SHORT).show();
     }
 
     // Clear button
     public void clear(View view){
-        Button button = findViewById(R.id.button_Clear);
-        button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                // clear the adapter
-//                numberAdapter.clear();
-            }
-        });
+        // Reset bar
+        ProgressBar progressBar = findViewById(R.id.progressBar2);
+        progressBar.setProgress(0);
+
+        // clear array
+        arrayAdapter.clear();
+
+        // Toasty!
+        Toast.makeText(this,"Cleared", Toast.LENGTH_SHORT).show();
     }
 }
